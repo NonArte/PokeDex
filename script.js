@@ -1,8 +1,14 @@
 const url = "https://pokeapi.co/api/v2/pokemon?limit=20&offset=";
 const urlW = "https://bulbapedia.bulbagarden.net/wiki/";
 let url1 = url;
+
 async function getData() {
   const data = await fetch(url1);
+  const response = await data.json();
+  return response;
+}
+async function getImg(link) {
+  const data = await fetch(link);
   const response = await data.json();
   return response;
 }
@@ -14,18 +20,25 @@ function text() {
   const body = document.querySelector(".text");
   getData().then((res) =>
     res.results.forEach((element) => {
-      const p = document.createElement("a");
-      p.setAttribute("href", `${urlW}${element.name}`);
-      p.setAttribute("target", "_blank");
-      p.innerText = `${element.name}`;
-      body.appendChild(p);
+      const article = document.createElement("article");
+      const img = document.createElement("img");
+      const a = document.createElement("a");
+      a.setAttribute("href", `${urlW}${element.name}`);
+      a.setAttribute("target", "_blank");
+      a.innerText = `${element.name}`;
+      getImg(element.url).then((png) =>
+        img.setAttribute("src", png.sprites.front_default.toString())
+      );
+      body.appendChild(article);
+      article.appendChild(img);
+      article.appendChild(a);
     })
   );
 }
 function clear() {
-  const p = document.querySelectorAll("a");
-  for (let i = 0; i < p.length; i++) {
-    p[i].remove();
+  const body = document.querySelectorAll("article");
+  for (let i = 0; i < body.length; i++) {
+    body[i].remove();
   }
 }
 
@@ -39,15 +52,17 @@ btn.forEach(function (btn) {
     const styles = a.currentTarget.classList;
     if (styles.contains("prev")) {
       if (offset <= 0) {
-        offset = 0;
+        document.getElementById("prev").disabled = true;
       } else {
         offset -= 20;
+        document.getElementById("next").disabled = false;
       }
     } else {
-      if (offset >= 1260) {
-        offset = 1279;
+      if (offset >= 1279) {
+        document.getElementById("next").disabled = true;
       } else {
         offset += 20;
+        document.getElementById("prev").disabled = false;
       }
     }
     url1 = url + offset.toString();

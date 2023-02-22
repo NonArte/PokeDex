@@ -6,12 +6,15 @@
 }
 
 main {
-  display: grid;
-  place-content: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 .container {
+  max-width: 65%;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -21,12 +24,29 @@ main {
 .text {
   text-align: center;
   text-transform: capitalize;
-  width: 22rem;
-  height: 18rem;
   border: 1px solid black;
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+}
+
+article {
+  width: 100px;
+  height: 120px;
+  margin: 0.5rem;
+}
+article img {
+  width: 96px;
+  height: 96px;
+}
+article a {
+  padding: 0.3rem 0.5rem;
+  /* text-decoration: none; */
+  color: black;
+}
+article a:hover {
+  color: darkblue;
 }
 
 .input {
@@ -41,21 +61,13 @@ main {
 }
 
 .button {
-  width: 22rem;
   height: 2rem;
-  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-around;
 }
 
 .btn {
-  width: 48%;
+  width: 10rem;
   padding: 0.2rem 0.5rem;
-}
-
-a {
-  padding: 0.3rem 0.5rem;
-  /* text-decoration: none; */
-  color: black;
-}
-a:hover {
-  color: darkblue;
 }/*# sourceMappingURL=style.css.map */
